@@ -3,6 +3,7 @@ package com.pivotal.springcacheexample;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class ProductService {
@@ -26,6 +27,7 @@ public class ProductService {
     }
 
     public Product save(Product product) {
+        product.setProductId(UUID.randomUUID().toString());
         productRepository.save(product);
         return product;
     }

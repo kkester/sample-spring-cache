@@ -30,7 +30,7 @@ public class SpringCacheExampleApplicationTests {
 	public void shouldGetProduct_WhenGivenValidId() throws Exception {
 
 		// given
-		String productId = "1234567890";
+		String productId = "9cfae4f0-e5fc-4d91-be83-3656a2776931";
 
 		// when
 		RequestBuilder requestBuilder = MockMvcRequestBuilders

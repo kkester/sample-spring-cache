@@ -6,7 +6,7 @@ should return a default name when called without any parameters
 """)
     request {
         method GET()
-        url "/products/1234567890"
+        url "/products/56fb94e8-7e85-48a3-8f59-866ad16bdefa"
     }
     response {
         status 200
@@ -14,7 +14,8 @@ should return a default name when called without any parameters
             contentType(applicationJson())
         }
         body(
-            productId: $(anyNonBlankString())
+            productId: '56fb94e8-7e85-48a3-8f59-866ad16bdefa',
+            productName: anyNonBlankString()
         )
     }
 }

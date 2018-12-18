@@ -14,12 +14,14 @@ should return a default name when called without any parameters
             contentType(applicationJson())
         }
         body('''
+            [
                 {
-                    "productId":"1234567890"
+                    "productId":"9cfae4f0-e5fc-4d91-be83-3656a2776931"
                 },
                 {
-                    "productId": "1234567891"
+                    "productId": "56fb94e8-7e85-48a3-8f59-866ad16bdefa"
                 }
+            ]
        ''')
     }
 }
