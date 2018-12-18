@@ -1,0 +1,29 @@
+package com.pivotal.springcacheexample.contract;
+
+import io.restassured.module.mockmvc.RestAssuredMockMvc;
+import org.junit.Before;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cloud.contract.verifier.messaging.boot.AutoConfigureMessageVerifier;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
+@DirtiesContext
+@AutoConfigureMockMvc
+@AutoConfigureMessageVerifier
+public abstract class BaseTestClass {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Before
+    public void setUp() {
+        RestAssuredMockMvc.mockMvc(mockMvc);
+    }
+
+}
