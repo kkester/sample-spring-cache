@@ -1,4 +1,4 @@
-package com.pivotal.springcacheexample;
+package io.pivotal.springcache;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,13 +7,12 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.util.StreamUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -21,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-public class SpringCacheExampleApplicationTests {
+public class ProductApplicationServiceTests {
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -34,12 +33,13 @@ public class SpringCacheExampleApplicationTests {
 
 		// when
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
-				.get("/products/"+productId)
+				.get("/products/{0}", productId)
 				.accept(MediaType.APPLICATION_JSON);
-		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+		MockHttpServletResponse result = mockMvc.perform(requestBuilder).andReturn().getResponse();
 
 		// then
-		assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
+		assertThat(result.getStatus()).isEqualTo(HttpStatus.OK.value());
+		assertThat(result.getContentAsString()).containsPattern(".*\"id\".*:.*9cfae4f0-e5fc-4d91-be83-3656a2776931");
 	}
 
 }

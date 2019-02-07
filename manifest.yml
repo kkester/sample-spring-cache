@@ -1,0 +1,6 @@
+---
+applications:
+- name: pcc-pizza
+  path:  target/spring-cache-example.jar
+  services:
+  - pcc

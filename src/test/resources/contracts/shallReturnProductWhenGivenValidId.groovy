@@ -14,8 +14,8 @@ should return a default name when called without any parameters
             contentType(applicationJson())
         }
         body(
-            productId: '56fb94e8-7e85-48a3-8f59-866ad16bdefa',
-            productName: anyNonBlankString()
+            id: '56fb94e8-7e85-48a3-8f59-866ad16bdefa',
+            name: anyNonBlankString()
         )
     }
 }

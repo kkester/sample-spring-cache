@@ -1,4 +1,4 @@
-package com.pivotal.springcacheexample.contract;
+package io.pivotal.springcache.contract;
 
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.junit.Before;
@@ -8,6 +8,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.contract.verifier.messaging.boot.AutoConfigureMessageVerifier;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -16,6 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @DirtiesContext
 @AutoConfigureMockMvc
 @AutoConfigureMessageVerifier
+@ActiveProfiles("test")
 public abstract class BaseTestClass {
 
     @Autowired

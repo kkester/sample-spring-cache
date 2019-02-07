@@ -2,7 +2,7 @@ import org.springframework.cloud.contract.spec.Contract
 
 Contract.make {
     description("""
-should return a default name when called without any parameters
+should return collection of products when called without any parameters
 """)
     request {
         method GET()
@@ -16,10 +16,10 @@ should return a default name when called without any parameters
         body('''
             [
                 {
-                    "productId":"9cfae4f0-e5fc-4d91-be83-3656a2776931"
+                    "id":"9cfae4f0-e5fc-4d91-be83-3656a2776931"
                 },
                 {
-                    "productId": "56fb94e8-7e85-48a3-8f59-866ad16bdefa"
+                    "id": "56fb94e8-7e85-48a3-8f59-866ad16bdefa"
                 }
             ]
        ''')

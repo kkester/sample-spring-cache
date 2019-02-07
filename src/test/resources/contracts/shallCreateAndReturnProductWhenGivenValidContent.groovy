@@ -1,7 +1,7 @@
 import org.springframework.cloud.contract.spec.Contract
 
 Contract.make {
-    description("""should create and return a product when called with valid product JSON""")
+    description("""should create and return a products when called with valid products JSON""")
     request {
         method POST()
         url "/products"
@@ -9,7 +9,7 @@ Contract.make {
             contentType(applicationJson())
         }
         body(
-            productName: value(c(anyUuid()), p('New Test Product')),
+            name: value(c(anyUuid()), p('New Test ProductEntity')),
             releaseDate: anyDate(),
             imageUrl: anyUrl()
         )
@@ -21,8 +21,8 @@ Contract.make {
             location()
         }
         body(
-            productId: $(anyNonBlankString()),
-            productName: fromRequest().body('$.productName'),
+            id: $(anyNonBlankString()),
+            name: fromRequest().body('$.name'),
             releaseDate: fromRequest().body('$.releaseDate'),
             imageUrl: fromRequest().body('$.imageUrl')
         )

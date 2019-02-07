@@ -1,4 +1,4 @@
-package com.pivotal.springcacheexample;
+package io.pivotal.springcache.products;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Collection;
 import java.util.Optional;
 
 @RestController
@@ -19,7 +20,7 @@ public class ProductController {
     }
 
     @GetMapping
-    public Iterable<Product> getProducts() {
+    public Collection<Product> getProducts() {
         return productService.getProducts();
     }
 
@@ -28,7 +29,7 @@ public class ProductController {
 
         Product productSaved = productService.save(product);
 
-        URI uri = builder.path("products/{id}").build(productSaved.getProductId());
+        URI uri = builder.path("products/{id}").build(productSaved.getId());
         return ResponseEntity.created(uri).body(productSaved);
     }
 
