@@ -56,15 +56,15 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.data</groupId>-->
-            <!--<artifactId>spring-data-gemfire</artifactId>-->
-        <!--</dependency>-->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-gemfire</artifactId>
-            <version>1.5.19.RELEASE</version>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-gemfire</artifactId>
         </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-data-gemfire</artifactId>-->
+            <!--<version>1.5.19.RELEASE</version>-->
+        <!--</dependency>-->
 
         <dependency>
             <groupId>io.springfox</groupId>
