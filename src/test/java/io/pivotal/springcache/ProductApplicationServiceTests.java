@@ -22,25 +22,38 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ActiveProfiles("test")
 public class ProductApplicationServiceTests {
 
-	@Autowired
-	private MockMvc mockMvc;
+    @Autowired
+    private MockMvc mockMvc;
 
-	@Test
-	public void shouldGetProduct_WhenGivenValidId() throws Exception {
+    @Test
+    public void shouldGetProduct_WhenGivenValidId() throws Exception {
 
-		// given
-		String productId = "9cfae4f0-e5fc-4d91-be83-3656a2776931";
+        // given
+        String productId = "9cfae4f0-e5fc-4d91-be83-3656a2776931";
 
-		// when
-		RequestBuilder requestBuilder = MockMvcRequestBuilders
-				.get("/products/{0}", productId)
-				.accept(MediaType.APPLICATION_JSON);
-		MockHttpServletResponse result = mockMvc.perform(requestBuilder).andReturn().getResponse();
+        // when
+        RequestBuilder requestBuilder = MockMvcRequestBuilders
+                .get("/products/{0}", productId)
+                .accept(MediaType.APPLICATION_JSON);
+        MockHttpServletResponse result = mockMvc.perform(requestBuilder).andReturn().getResponse();
 
-		// then
-		assertThat(result.getStatus()).isEqualTo(HttpStatus.OK.value());
-		assertThat(result.getContentAsString()).containsPattern(".*\"id\".*:.*9cfae4f0-e5fc-4d91-be83-3656a2776931");
-	}
+        // then
+        assertThat(result.getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(result.getContentAsString()).containsPattern(".*\"id\".*:.*9cfae4f0-e5fc-4d91-be83-3656a2776931");
+    }
 
+    @Test
+    public void shouldGetProducts() throws Exception {
+
+        // when
+        RequestBuilder requestBuilder = MockMvcRequestBuilders
+                .get("/products")
+                .accept(MediaType.APPLICATION_JSON);
+        MockHttpServletResponse result = mockMvc.perform(requestBuilder).andReturn().getResponse();
+
+        // then
+        assertThat(result.getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(result.getContentAsString()).containsPattern(".*\"id\".*:.*9cfae4f0-e5fc-4d91-be83-3656a2776931");
+    }
 }
 

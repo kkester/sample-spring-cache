@@ -1,5 +1,6 @@
-package io.pivotal.springcache.offers;
+package io.pivotal.springcache.store;
 
+import io.pivotal.springcache.offers.Offer;
 import io.pivotal.springcache.products.Product;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

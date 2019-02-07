@@ -1,5 +1,6 @@
-package io.pivotal.springcache.offers;
+package io.pivotal.springcache.store;
 
+import io.pivotal.springcache.offers.OfferService;
 import io.pivotal.springcache.products.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

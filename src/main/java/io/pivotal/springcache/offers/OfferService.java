@@ -18,7 +18,6 @@ import java.util.Collections;
 import java.util.List;
 
 @Service
-@Region(name = "OffersCache")
 @ConditionalOnProperty(prefix = "feature.toggle", name = "offers-enabled", havingValue="true")
 @Slf4j
 public class OfferService {
@@ -39,7 +38,7 @@ public class OfferService {
         return this.getOffers("promotions");
     }
 
-    @Cacheable
+    @Cacheable(value = "offers")
     public Collection<Offer> getOffers(String type) {
 
         Collection<Offer> offers = Collections.emptyList();

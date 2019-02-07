@@ -10,7 +10,6 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
-@Region(name = "ProductsCache")
 public class ProductService {
 
     private ProductEntityRepository productRepository;
@@ -19,7 +18,7 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    @Cacheable
+    @Cacheable(value = "products")
     public Collection<Product> getProducts() {
         return productRepository.findAll().stream().map(this::map).collect(Collectors.toList());
     }

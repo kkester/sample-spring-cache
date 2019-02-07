@@ -9,8 +9,7 @@ import org.springframework.data.gemfire.config.annotation.EnableLogging;
 @Configuration
 @ClientCacheApplication(name = "spring-cache-example")
 @EnableGemfireCaching
-@EnableEntityDefinedRegions(basePackages = {"com.pivotal.springcache"})
+@EnableEntityDefinedRegions(basePackages = {"io.pivotal.springcache.offers", "io.pivotal.springcache.products"})
 @EnableLogging(logLevel = "info")
-public class SpringCacheConfig {
-
+public class CloudCacheConfig {
 }

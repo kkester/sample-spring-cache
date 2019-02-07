@@ -1,4 +1,4 @@
-package io.pivotal.springcache.offers;
+package io.pivotal.springcache.store;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

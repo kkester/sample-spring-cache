@@ -1,12 +1,17 @@
 package io.pivotal.springcache;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
+import org.apache.geode.cache.GemFireCache;
+import org.apache.geode.cache.Region;
+import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,6 +25,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(properties = {"feature.toggle.offers-enabled=true", "integration.offers.base.url=http://localhost:7777/offers?type={0}"})
@@ -33,7 +40,7 @@ public class StoreApplicationServiceTests {
 	@Autowired
 	private MockMvc mockMvc;
 
-	@Test
+    @Test
 	public void shouldGetHomeWithOffers_WhenOffersIsEnabled() throws Exception {
 
 		// given
