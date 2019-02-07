@@ -1,5 +1,7 @@
 package io.pivotal.springcache.products;
 
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.gemfire.mapping.annotation.Region;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -8,6 +10,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
+@Region(name = "ProductsCache")
 public class ProductService {
 
     private ProductEntityRepository productRepository;
@@ -16,18 +19,11 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    /*@Cacheable(value = "productsCache")*/
+    @Cacheable
     public Collection<Product> getProducts() {
         return productRepository.findAll().stream().map(this::map).collect(Collectors.toList());
     }
 
-
-    /*@Caching(
-        put = {
-            @CachePut(value = "userCache", key = "'username:' + #result.username", condition = "#result != null"),
-            @CachePut(value = "userCache", key = "#result.id", condition = "#result != null")
-        }
-    )*/
     public Optional<Product> getProductById(String productId) {
         Optional<ProductEntity> productEntityOptional = productRepository.findById(productId);
         Product product = productEntityOptional.isPresent() ? this.map(productEntityOptional.get()) : null;
