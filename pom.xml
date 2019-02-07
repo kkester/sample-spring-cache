@@ -16,8 +16,9 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <spring-cloud-services.version>2.0.3.RELEASE</spring-cloud-services.version>
-        <spring-cloud.version>Finchley.SR2</spring-cloud.version>
+        <spring.cloud.services.version>2.0.3.RELEASE</spring.cloud.services.version>
+        <spring.cloud.version>Finchley.SR2</spring.cloud.version>
+        <cukes.version>1.2.5</cukes.version>
     </properties>
 
     <dependencies>
@@ -99,6 +100,7 @@
             <artifactId>jul-to-slf4j</artifactId>
         </dependency>
 
+        <!-- TEST -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -126,6 +128,26 @@
             <version>2.18.0</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- Cucumber -->
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cukes.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>${cukes.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-spring</artifactId>
+            <version>${cukes.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
@@ -133,14 +155,14 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring-cloud.version}</version>
+                <version>${spring.cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>io.pivotal.spring.cloud</groupId>
                 <artifactId>spring-cloud-services-dependencies</artifactId>
-                <version>${spring-cloud-services.version}</version>
+                <version>${spring.cloud.services.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -177,6 +199,15 @@
             <plugin>
                 <groupId>pl.project13.maven</groupId>
                 <artifactId>git-commit-id-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>**/*IT.java</exclude>
+                    </excludes>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.springframework.cloud</groupId>

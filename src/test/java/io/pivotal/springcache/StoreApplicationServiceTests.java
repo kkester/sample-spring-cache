@@ -10,10 +10,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -53,12 +53,12 @@ public class StoreApplicationServiceTests {
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get("/offers")
 				.accept(MediaType.APPLICATION_JSON);
-		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+		MockHttpServletResponse result = mockMvc.perform(requestBuilder).andReturn().getResponse();
 
 		// then
-		assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(result.getResponse().getContentAsString()).containsPattern(".*banners.*banner-1.*");
-        assertThat(result.getResponse().getContentAsString()).containsPattern(".*promotions.*promo-1.*");
+		assertThat(result.getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(result.getContentAsString()).containsPattern(".*banners.*banner-1.*");
+        assertThat(result.getContentAsString()).containsPattern(".*promotions.*promo-1.*");
 	}
 
     @Test
@@ -81,12 +81,12 @@ public class StoreApplicationServiceTests {
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .get("/offers")
                 .accept(MediaType.APPLICATION_JSON);
-        MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+        MockHttpServletResponse result = mockMvc.perform(requestBuilder).andReturn().getResponse();
 
         // then
-        assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(result.getResponse().getContentAsString()).containsPattern(".*banners.*");
-        assertThat(result.getResponse().getContentAsString()).containsPattern(".*promotions.*");
+        assertThat(result.getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(result.getContentAsString()).containsPattern(".*banners.*");
+        assertThat(result.getContentAsString()).containsPattern(".*promotions.*");
     }
 
 }
