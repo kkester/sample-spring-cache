@@ -14,8 +14,7 @@ public class StoreService {
     @Autowired
     private ProductService productService;
 
-    //@Cacheable(value = "storeCache")
-    public Store getHomeResource() {
+    public Store getStoreResource() {
         Store.StoreBuilder builder = Store.builder();
         if (offerService != null) {
             builder.banners(offerService.getBanners()).promotions(offerService.getPromotions());

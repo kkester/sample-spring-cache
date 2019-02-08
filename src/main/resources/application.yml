@@ -30,4 +30,4 @@ feature:
 
 integration:
   offers:
-    base-url: http://localhost:8081/offers?{0}
+    base-url: http://localhost:9999/offers?type={0}

@@ -58,7 +58,7 @@ public class StoreApplicationServiceTests {
 
 		// when
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
-				.get("/offers")
+				.get("/store")
 				.accept(MediaType.APPLICATION_JSON);
 		MockHttpServletResponse result = mockMvc.perform(requestBuilder).andReturn().getResponse();
 
@@ -86,7 +86,7 @@ public class StoreApplicationServiceTests {
 
         // when
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .get("/offers")
+                .get("/store")
                 .accept(MediaType.APPLICATION_JSON);
         MockHttpServletResponse result = mockMvc.perform(requestBuilder).andReturn().getResponse();
 

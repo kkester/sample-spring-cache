@@ -10,8 +10,8 @@ public class StoreController {
     @Autowired
     private StoreService storeService;
 
-    @GetMapping(name = "/offers")
-    public Store getHomeResource() {
-        return storeService.getHomeResource();
+    @GetMapping(path = "/store")
+    public Store getStoreResource() {
+        return storeService.getStoreResource();
     }
 }
