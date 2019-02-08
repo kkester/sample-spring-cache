@@ -1,7 +1,7 @@
 package io.pivotal.springcache.products;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.gemfire.mapping.annotation.Region;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -10,6 +10,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class ProductService {
 
     private ProductEntityRepository productRepository;
@@ -19,7 +20,10 @@ public class ProductService {
     }
 
     @Cacheable(value = "products")
-    public Collection<Product> getProducts() {
+    public Collection<Product> getProducts(String key) {
+
+        log.info("Retrieving products from repository");
+
         return productRepository.findAll().stream().map(this::map).collect(Collectors.toList());
     }
 

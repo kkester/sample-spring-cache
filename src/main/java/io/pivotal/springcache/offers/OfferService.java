@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.data.gemfire.mapping.annotation.Region;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -28,18 +27,10 @@ public class OfferService {
     @Autowired
     private RestTemplateBuilder restTemplateBuilder;
 
-    public Collection<Offer> getBanners() {
-
-        return this.getOffers("banners");
-    }
-
-    public Collection<Offer> getPromotions() {
-
-        return this.getOffers("promotions");
-    }
-
     @Cacheable(value = "offers")
     public Collection<Offer> getOffers(String type) {
+
+        log.info("Retrieving offers from external service");
 
         Collection<Offer> offers = Collections.emptyList();
         RestTemplate restTemplate = restTemplateBuilder.build();

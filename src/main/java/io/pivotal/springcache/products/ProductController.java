@@ -21,7 +21,7 @@ public class ProductController {
 
     @GetMapping
     public Collection<Product> getProducts() {
-        return productService.getProducts();
+        return productService.getProducts("all");
     }
 
     @PostMapping

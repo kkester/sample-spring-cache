@@ -17,8 +17,8 @@ public class StoreService {
     public Store getStoreResource() {
         Store.StoreBuilder builder = Store.builder();
         if (offerService != null) {
-            builder.banners(offerService.getBanners()).promotions(offerService.getPromotions());
+            builder.banners(offerService.getOffers("banners")).promotions(offerService.getOffers("promotions"));
         }
-        return builder.products(productService.getProducts()).build();
+        return builder.products(productService.getProducts("all")).build();
     }
 }
