@@ -40,6 +40,9 @@ public class StoreApplicationServiceTests {
 	@Autowired
 	private MockMvc mockMvc;
 
+	@Autowired
+    private GemFireCache gemFireCache;
+
     @Test
 	public void shouldGetHomeWithOffers_WhenOffersIsEnabled() throws Exception {
 
@@ -66,6 +69,8 @@ public class StoreApplicationServiceTests {
 		assertThat(result.getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(result.getContentAsString()).containsPattern(".*banners.*banner-1.*");
         assertThat(result.getContentAsString()).containsPattern(".*promotions.*promo-1.*");
+        assertThat(gemFireCache.getRegion("products")).hasSize(1);
+        assertThat(gemFireCache.getRegion("offers")).hasSize(2);
 	}
 
     @Test

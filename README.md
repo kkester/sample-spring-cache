@@ -25,3 +25,26 @@ Order smallest test suite size to largest, the following is the list of test typ
 1. JSON Tests (Test classes with the suffix `JsonTest`)
 1. Contract (Tests defined within `/resources/contracts`)
 1. Unit
+
+### Wiremock
+
+If using `Wiremock` to simulate the service callouts to retrieve offers, then the request below can be used to stub the integration. 
+
+POST /__admin/mappings/new HTTP/1.1<br>
+Content-Type: application/json<br>
+```json
+{ 
+	"request": { 
+		"url": "/offers?type=banners", 
+		"method": "GET" 
+		
+	}, 
+	"response": { 
+		"status": 200, 
+		"body": "[{\"name\":\"banner-1\"}]",
+		"headers": {
+            "Content-Type": "application/json"
+        }
+	}
+}
+```

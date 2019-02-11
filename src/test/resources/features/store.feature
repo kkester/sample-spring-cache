@@ -5,3 +5,5 @@ Feature: the client can retrieve the store
     And the client receives "products"
     And the client receives "banners"
     And the client receives "promotions"
+    And the participant's products is cached
+    And the participant's "banners" is cached in "offers"

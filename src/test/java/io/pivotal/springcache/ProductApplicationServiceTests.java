@@ -1,10 +1,12 @@
 package io.pivotal.springcache;
 
+import org.apache.geode.cache.GemFireCache;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.gemfire.cache.GemfireCache;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -24,6 +26,9 @@ public class ProductApplicationServiceTests {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    private GemFireCache gemFireCache;
 
     @Test
     public void shouldGetProduct_WhenGivenValidId() throws Exception {
@@ -54,6 +59,7 @@ public class ProductApplicationServiceTests {
         // then
         assertThat(result.getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(result.getContentAsString()).containsPattern(".*\"id\".*:.*9cfae4f0-e5fc-4d91-be83-3656a2776931");
+        assertThat(gemFireCache.getRegion("products").get("all")).isNotNull();
     }
 }
 
