@@ -5,4 +5,4 @@ feature:
 
 integration:
   offers:
-    base-url: http://localhost:7777/offers?type={0}
+    base-url: http://localhost/offers?type={0}

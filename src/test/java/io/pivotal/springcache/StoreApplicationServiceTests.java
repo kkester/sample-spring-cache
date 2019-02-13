@@ -1,41 +1,38 @@
 package io.pivotal.springcache;
 
-import com.github.tomakehurst.wiremock.junit.WireMockRule;
+import com.github.tomakehurst.wiremock.WireMockServer;
 import org.apache.geode.cache.GemFireCache;
-import org.apache.geode.cache.Region;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
-import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.when;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(properties = {"feature.toggle.offers-enabled=true", "integration.offers.base.url=http://localhost:7777/offers?type={0}"})
 @AutoConfigureMockMvc
-@ActiveProfiles("test")
+@ActiveProfiles(profiles = {"test", "wire"})
+@ContextConfiguration(initializers = ApplicationTestContextInitializer.class)
 public class StoreApplicationServiceTests {
 
-	@ClassRule
-	public static WireMockRule wireMockRule = new WireMockRule(wireMockConfig().port(7777));
+	@Autowired
+	private WireMockServer wireMockServer;
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -43,17 +40,29 @@ public class StoreApplicationServiceTests {
 	@Autowired
     private GemFireCache gemFireCache;
 
+	@BeforeEach
+	void configureSystemUnderTest() {
+		wireMockServer.start();
+        configureFor("localhost", wireMockServer.port());
+	}
+
+	@AfterEach
+	void stopWireMockServer() {
+		this.wireMockServer.stop();
+	}
+
+	@Tag("component")
     @Test
 	public void shouldGetHomeWithOffers_WhenOffersIsEnabled() throws Exception {
 
 		// given
-		stubFor(get(urlEqualTo("/offers?type=banners"))
+		givenThat(get(urlEqualTo("/offers?type=banners"))
 				.willReturn(aResponse()
 						.withStatus(200)
 						.withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE)
 						.withBodyFile("BannerOffers.json")));
 
-		stubFor(get(urlEqualTo("/offers?type=promotions"))
+		givenThat(get(urlEqualTo("/offers?type=promotions"))
 				.willReturn(aResponse()
 						.withStatus(200)
 						.withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -73,17 +82,18 @@ public class StoreApplicationServiceTests {
         assertThat(gemFireCache.getRegion("offers")).hasSize(2);
 	}
 
+	@Tag("component")
     @Test
     public void shouldGetHomeWithEmptyOffers_WhenNoneAvailable() throws Exception {
 
         // given
-        stubFor(get(urlEqualTo("/offers?type=banners"))
+		givenThat(get(urlEqualTo("/offers?type=banners"))
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE)
                         .withBody("[]")));
 
-        stubFor(get(urlEqualTo("/offers?type=promotions"))
+		givenThat(get(urlEqualTo("/offers?type=promotions"))
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE)

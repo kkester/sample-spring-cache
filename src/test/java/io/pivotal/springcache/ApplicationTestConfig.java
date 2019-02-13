@@ -1,18 +1,19 @@
 package io.pivotal.springcache;
 
+import com.github.tomakehurst.wiremock.WireMockServer;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.geode.cache.GemFireCache;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.Primary;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.*;
 import org.springframework.data.gemfire.cache.GemfireCacheManager;
 import org.springframework.data.gemfire.tests.mock.annotation.EnableGemFireMockObjects;
-import org.springframework.test.context.ActiveProfiles;
+
+import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 
 @Configuration
 @EnableGemFireMockObjects
 @Import(CloudCacheConfig.class)
-@ActiveProfiles("test")
+@Slf4j
 public class ApplicationTestConfig {
 
     @Primary
@@ -21,6 +22,12 @@ public class ApplicationTestConfig {
         GemfireCacheManager gemfireCacheManger = new GemfireCacheManager();
         gemfireCacheManger.setCache(gemfireCache);
         return gemfireCacheManger;
+    }
+
+    @Bean
+    @Profile("wire")
+    WireMockServer wireMockServer(@Value("${wiremock.dynamic.port}") Integer port) {
+        return new WireMockServer(options().port(port));
     }
 
 }

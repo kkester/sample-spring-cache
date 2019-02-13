@@ -1,7 +1,6 @@
 package io.pivotal.springcache.offers;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -21,11 +20,14 @@ import java.util.List;
 @Slf4j
 public class OfferService {
 
-    @Value("${integration.offers.base-url}")
     private String offersBaseUrl;
 
-    @Autowired
     private RestTemplateBuilder restTemplateBuilder;
+
+    public OfferService(@Value("${integration.offers.base-url}")String offersBaseUrl, RestTemplateBuilder restTemplateBuilder) {
+        this.offersBaseUrl = offersBaseUrl;
+        this.restTemplateBuilder = restTemplateBuilder;
+    }
 
     @Cacheable(value = "offers")
     public Collection<Offer> getOffers(String type) {

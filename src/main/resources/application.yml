@@ -26,7 +26,7 @@ management:
 
 feature:
   toggle:
-    offers-enabled: true
+    offers-enabled: false
 
 integration:
   offers:
