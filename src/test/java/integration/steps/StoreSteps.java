@@ -1,5 +1,7 @@
 package integration.steps;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -35,9 +37,18 @@ public class StoreSteps {
         assertThat(restApiFeature.getLastResponse().getResponse().getStatusCode().value()).isEqualTo(status);
     }
 
-    @And("^the client receives \"([^\"]*)\"$")
-    public void the_client_receives_participant_attribute(String attributeName) {
-        assertThat(restApiFeature.getLastResponse().getBodyJsonObject().has(attributeName)).isTrue();
+    @And("^the client receives \"([^\"]*)\" with \"([^\"]*)\" and a value of \"([^\"]*)\"$")
+    public void the_client_receives_participant_attribute(String attributeName, String propertyName, String propertyValue) {
+        ObjectNode bodyJsonObject = restApiFeature.getLastResponse().getBodyJsonObject();
+        assertThat(bodyJsonObject.has(attributeName)).isTrue();
+        JsonNode attributeJsonNode = bodyJsonObject.get(attributeName);
+        if (attributeJsonNode.isObject()) {
+            JsonNode valueJsonNode = attributeJsonNode.findValue(propertyName);
+            assertThat(valueJsonNode).isNotNull();
+            assertThat(valueJsonNode.asText()).isEqualTo(propertyValue);
+        } else if (attributeJsonNode.isArray()) {
+            assertThat(attributeJsonNode.findValuesAsText(propertyName)).contains(propertyValue);
+        }
     }
 
     @And("^the participant's products is cached$")

@@ -46,12 +46,14 @@ public class OfferService {
             type
         );
 
+        log.info("Offers from external service received with status {}", response.getStatusCode());
+
         return response.getBody();
     }
 
     public Collection<Offer> defaultOfferResponse(String type) {
 
-        log.error("Error occurred calling out for offers");
+        log.error("Error occurred calling out for offers {}", type);
 
         return Arrays.asList(Offer.builder().name(type).description(type + " currently unavailable").build());
     }

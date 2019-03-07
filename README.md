@@ -37,8 +37,8 @@ Order smallest test suite size to largest, the following is the list of test typ
 1. Startup `GFSH`
 1. Initiate a locator using `start locator`
 1. Initiate a server using  `start server`
-1. Establish a region using `create region --name=products --type=PARTITION_PERSISTENT`
-1. Establish a region using `create region --name=offers --type=PARTITION_PERSISTENT`
+1. Establish a region using `create region --name=products --type=PARTITION`
+1. Establish a region using `create region --name=offers --type=PARTITION`
 1. Verify server structure
   - `list members`
   - `describe member --name={serverName}`
