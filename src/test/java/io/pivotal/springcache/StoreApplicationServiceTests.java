@@ -14,6 +14,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -29,6 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @AutoConfigureMockMvc
 @ActiveProfiles(profiles = {"test", "wire"})
 @ContextConfiguration(initializers = ApplicationTestContextInitializer.class)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD) // Needed so each test gets its own WireMock Server
 public class StoreApplicationServiceTests {
 
 	@Autowired
@@ -80,6 +82,31 @@ public class StoreApplicationServiceTests {
         assertThat(result.getContentAsString()).containsPattern(".*promotions.*promo-1.*");
         assertThat(gemFireCache.getRegion("products")).hasSize(1);
         assertThat(gemFireCache.getRegion("offers")).hasSize(2);
+	}
+
+	@Tag("component")
+	@Test
+	public void shouldGetHomeWithOffers_WhenOffersCalloutFails() throws Exception {
+
+		// given
+		givenThat(get(urlEqualTo("/offers?type=banners"))
+				.willReturn(aResponse().withStatus(500)));
+
+		givenThat(get(urlEqualTo("/offers?type=promotions"))
+				.willReturn(aResponse().withStatus(500)));
+
+		// when
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.get("/store")
+				.accept(MediaType.APPLICATION_JSON);
+		MockHttpServletResponse result = mockMvc.perform(requestBuilder).andReturn().getResponse();
+
+		// then
+		assertThat(result.getStatus()).isEqualTo(HttpStatus.OK.value());
+		assertThat(result.getContentAsString()).containsPattern(".*banners currently unavailable.*");
+		assertThat(result.getContentAsString()).containsPattern(".*promotions currently unavailable.*");
+		assertThat(gemFireCache.getRegion("products")).hasSize(1);
+		assertThat(gemFireCache.getRegion("offers")).hasSize(2);
 	}
 
 	@Tag("component")

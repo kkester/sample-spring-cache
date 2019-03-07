@@ -8,7 +8,9 @@ The following recommendations are implemented:
 - Feature Toggles
 - Spring JPA Using H2
 - Logging Utilizing AOP
+- Circuit Breakers Utilizing Hysterix
 - Swagger API Documentation
+- JUnit Jupiter Unit Testing
 - Contract Testing
 - JSON Testing
 - Testing External API Callouts with Wiremock

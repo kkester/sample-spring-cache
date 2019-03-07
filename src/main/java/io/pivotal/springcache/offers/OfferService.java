@@ -1,5 +1,6 @@
 package io.pivotal.springcache.offers;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -29,27 +31,29 @@ public class OfferService {
         this.restTemplateBuilder = restTemplateBuilder;
     }
 
+    @HystrixCommand(fallbackMethod = "defaultOfferResponse")
     @Cacheable(value = "offers")
     public Collection<Offer> getOffers(String type) {
 
         log.info("Retrieving offers from external service");
 
-        Collection<Offer> offers = Collections.emptyList();
         RestTemplate restTemplate = restTemplateBuilder.build();
+        ResponseEntity<List<Offer>> response = restTemplate.exchange(
+            offersBaseUrl,
+            HttpMethod.GET,
+            null,
+            new ParameterizedTypeReference<List<Offer>>() {},
+            type
+        );
 
-        try {
-            ResponseEntity<List<Offer>> response = restTemplate.exchange(
-                    offersBaseUrl,
-                    HttpMethod.GET,
-                    null,
-                    new ParameterizedTypeReference<List<Offer>>() {},
-                    type
-            );
-            offers = response.getBody();
-        } catch (Exception e) {
-            log.error("Unexpected error occurred invoking call to get offers {}", e);
-        }
-
-        return offers;
+        return response.getBody();
     }
+
+    public Collection<Offer> defaultOfferResponse(String type) {
+
+        log.error("Error occurred calling out for offers");
+
+        return Arrays.asList(Offer.builder().name(type).description(type + " currently unavailable").build());
+    }
+
 }

@@ -24,6 +24,7 @@
         <spring.contract.verifier.version>2.0.2.RELEASE</spring.contract.verifier.version>
         <spring.geode.test.version>0.0.1.M3</spring.geode.test.version>
         <wiremock.version>2.18.0</wiremock.version>
+        <hysterix.version>2.0.2.RELEASE</hysterix.version>
     </properties>
 
     <dependencies>
@@ -72,6 +73,11 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-cloudfoundry-connector</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+            <version>${hysterix.version}</version>
         </dependency>
 
         <dependency>
