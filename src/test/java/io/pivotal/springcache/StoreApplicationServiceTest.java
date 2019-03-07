@@ -31,7 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ActiveProfiles(profiles = {"test", "wire"})
 @ContextConfiguration(initializers = ApplicationTestContextInitializer.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD) // Needed so each test gets its own WireMock Server
-public class StoreApplicationServiceTests {
+public class StoreApplicationServiceTest {
 
 	@Autowired
 	private WireMockServer wireMockServer;

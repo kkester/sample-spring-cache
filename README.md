@@ -28,6 +28,22 @@ Order smallest test suite size to largest, the following is the list of test typ
 1. Contract (Tests defined within `/resources/contracts`)
 1. Unit
 
+`mvn test` will execute all Unit, JSON, Component, and Contract Tests <br>
+`mvn integration-test -Dunit.tests.skip=true` will execute only the integration tests
+
+### Gemfire Setup
+
+1. Download and install the `GFSH` cli tool
+1. Startup `GFSH`
+1. Initiate a locator using `start locator`
+1. Initiate a server using  `start server`
+1. Establish a region using `create region --name=products --type=PARTITION_PERSISTENT`
+1. Establish a region using `create region --name=offers --type=PARTITION_PERSISTENT`
+1. Verify server structure
+  - `list members`
+  - `describe member --name={serverName}`
+  - Ensure region is contained by server
+
 ### Wiremock
 
 If using `Wiremock` to simulate the service callouts to retrieve offers, then the request below can be used to stub the integration. 

@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-public class ProductApplicationServiceTests {
+public class ProductApplicationServiceTest {
 
     @Autowired
     private MockMvc mockMvc;
