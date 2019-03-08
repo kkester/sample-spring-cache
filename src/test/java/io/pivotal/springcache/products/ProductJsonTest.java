@@ -18,20 +18,20 @@ import static org.skyscreamer.jsonassert.JSONAssert.assertEquals;
 public class ProductJsonTest {
 
     @Autowired
-    private JacksonTester<ProductEntity> jsonTester;
+    private JacksonTester<Product> jsonTester;
 
     @Test
     public void testSerialization() throws Exception {
 
         // given
-        String content = "{\"productId\":\"1234\",\"productName\":\"Groovy\"}";
+        String content = "{\"id\":\"1234\",\"name\":\"Groovy\"}";
 
         // when
-        ProductEntity album = this.jsonTester.parseObject(content);
-        JsonContent<ProductEntity> albumJsonContent = this.jsonTester.write(album);
+        Product product = this.jsonTester.parseObject(content);
+        JsonContent<Product> productJsonContent = this.jsonTester.write(product);
 
         // then
-        assertEquals(albumJsonContent.getJson(), content, JSONCompareMode.STRICT);
+        assertEquals(content, productJsonContent.getJson(), JSONCompareMode.STRICT);
     }
 
 }
