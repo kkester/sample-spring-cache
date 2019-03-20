@@ -15,13 +15,7 @@ jobs:
         trigger: true
       - task: Build project
         file: sample-spring-cache-app/ci/tasks/build.yml
-  - name: deploy
-    public: true
-    plan:
-      - task: Deploy artifact
+      - task: Deploy App
         file: sample-spring-cache-app/ci/tasks/deploy.yml
-  - name: Integration Test
-    public: true
-    plan:
       - task: Execute Integration Tests
         file: sample-spring-cache-app/ci/tasks/integration-test.yml
