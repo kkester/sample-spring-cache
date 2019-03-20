@@ -8,7 +8,7 @@ node {
         sh('./mvnw clean package')
     }
     stage('Results') {
-        junit '**/build/test-results/test/TEST-*.xml'
+        junit '**/target/surefire-reports/TEST-*.xml'
         archiveArtifacts('target/*.jar')
     }
     stage("Deploy") {
