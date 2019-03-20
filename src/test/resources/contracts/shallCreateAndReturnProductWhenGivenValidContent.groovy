@@ -1,7 +1,7 @@
 import org.springframework.cloud.contract.spec.Contract
 
 Contract.make {
-    description("""should create and return a products when called with valid products JSON""")
+    description("""should create and return products when called with valid products JSON""")
     request {
         method POST()
         url "/products"

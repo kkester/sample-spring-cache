@@ -1,9 +1,7 @@
 import org.springframework.cloud.contract.spec.Contract
 
 Contract.make {
-    description("""
-should return collection of products when called without any parameters
-""")
+    description("""should return collection of products when called without any parameters""")
     request {
         method GET()
         url "/products"

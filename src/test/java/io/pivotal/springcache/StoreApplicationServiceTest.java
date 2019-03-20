@@ -26,7 +26,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(properties = {"feature.toggle.offers-enabled=true", "integration.offers.base.url=http://localhost:7777/offers?type={0}"})
+@SpringBootTest(properties = {"feature.toggle.offers-enabled=true", "feature.toggle.caching-enabled=true", "integration.offers.base.url=http://localhost:7777/offers?type={0}"})
 @AutoConfigureMockMvc
 @ActiveProfiles(profiles = {"test", "wire"})
 @ContextConfiguration(initializers = ApplicationTestContextInitializer.class)

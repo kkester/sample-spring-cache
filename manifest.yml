@@ -1,6 +1,12 @@
 ---
 applications:
-- name: pcc-pizza
-  path:  target/spring-cache-example.jar
-  services:
-  - pcc
+  - name: spring-product-redis-application
+    memory: 1G
+    instances: 1
+    buildpacks:
+      - java_buildpack_offline
+    path: target/spring-cache-example.jar
+    routes:
+      - route: spring-store-cache.app.pcfone.io
+    services:
+      - pcc

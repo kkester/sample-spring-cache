@@ -8,7 +8,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConditionalOnProperty(prefix = "feature.toggle", name = "offers-enabled", havingValue = "true")
+@ConditionalOnProperty(prefix = "feature.toggle", name = {"offers-enabled", "caching-enabled"}, havingValue = "true")
 @Slf4j
 public class OfferCacheManager {
 

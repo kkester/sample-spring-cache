@@ -19,10 +19,10 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
-@SpringBootTest
+@SpringBootTest(properties = "feature.toggle.caching-enabled=true")
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-public class ProductApplicationServiceTest {
+public class ProductCachingApplicationServiceTest {
 
     @Autowired
     private MockMvc mockMvc;

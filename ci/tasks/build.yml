@@ -1,0 +1,14 @@
+platform: linux
+
+image_resource:
+  type: docker-image
+  source: {repository: java, tag: openjdk-8-alpine}
+
+inputs:
+  - name: sample-spring-redis-app
+
+outputs:
+  - name: build-output
+
+run:
+  path: "sample-spring-redis-app/ci/scripts/build.sh"

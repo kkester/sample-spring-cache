@@ -13,6 +13,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -25,7 +26,7 @@ public class StoreSteps {
     private RestApiFeature restApiFeature;
 
     @Autowired
-    private CachingFeature cachingFeature;
+    private Optional<CachingFeature> cachingFeature;
 
     @When("^the client calls /store$")
     public void the_client_issues_GET_participant() {
@@ -53,12 +54,14 @@ public class StoreSteps {
 
     @And("^the participant's products is cached$")
     public void the_participant_products_resource_cached() {
-        assertThat(cachingFeature.getCacheValue("products", "all")).isNotEmpty();
+        assertThat(cachingFeature.isPresent()).isTrue();
+        assertThat(cachingFeature.get().getCacheValue("products", "all")).isNotEmpty();
     }
 
     @And("^the participant's \"([^\"]*)\" is cached in \"([^\"]*)\"$")
     public void the_participant_resource_cached(String attributeName, String regionName) {
-        assertThat(cachingFeature.getCacheValue(regionName, attributeName)).isNotEmpty();
+        assertThat(cachingFeature.isPresent()).isTrue();
+        assertThat(cachingFeature.get().getCacheValue(regionName, attributeName)).isNotEmpty();
     }
 
 }

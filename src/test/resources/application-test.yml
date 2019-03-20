@@ -2,6 +2,7 @@
 feature:
   toggle:
     offers-enabled: false
+    caching-enabled: false
 
 integration:
   offers:

@@ -1,0 +1,27 @@
+---
+resources:
+  - name: sample-spring-cache-app
+    type: git
+    source:
+      uri: https://github.com/kkester/sample-spring-cache.git
+      branch: master
+    check_every: 30s
+
+jobs:
+  - name: build
+    public: true
+    plan:
+      - get: sample-spring-cache-app
+        trigger: true
+      - task: Build project
+        file: sample-spring-cache-app/ci/tasks/build.yml
+  - name: deploy
+    public: true
+    plan:
+      - task: Deploy artifact
+        file: sample-spring-cache-app/ci/tasks/deploy.yml
+  - name: Integration Test
+    public: true
+    plan:
+      - task: Execute Integration Tests
+        file: sample-spring-cache-app/ci/tasks/integration-test.yml

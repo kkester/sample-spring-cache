@@ -15,6 +15,10 @@ spring:
     driver-class-name: org.h2.Driver
     generate-unique-name: true
 
+feature:
+  toggle:
+    caching-enabled: false
+
 application:
   integration:
     base-url: http://localhost:8080
