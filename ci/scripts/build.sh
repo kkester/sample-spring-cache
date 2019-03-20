@@ -5,4 +5,3 @@ cd sample-spring-cache-app
 cd ..
 cp sample-spring-cache-app/target/*.jar build-output/
 cp sample-spring-cache-app/manifest.yml build-output/
-ls -al build-output

@@ -2,10 +2,10 @@ platform: linux
 
 image_resource:
   type: docker-image
-  source:
-    repository: alpine
+  source: {repository: java, tag: openjdk-8-alpine}
+
+inputs:
+  - name: sample-spring-cache-app
 
 run:
-  path: echo
-  args:
-    - 'Executing Int Tests'
+  path: "sample-spring-cache-app/ci/scripts/integration-test.sh"

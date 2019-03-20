@@ -1,12 +1,12 @@
 ---
 applications:
-  - name: spring-product-redis-application
+  - name: spring-store-cache-application
     memory: 1G
     instances: 1
     buildpacks:
       - java_buildpack_offline
     path: target/spring-cache-example.jar
     routes:
-      - route: spring-store-cache.app.pcfone.io
+      - route: spring-store-cache.apps.pcfone.io
     services:
       - pcc

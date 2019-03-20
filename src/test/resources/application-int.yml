@@ -17,8 +17,9 @@ spring:
 
 feature:
   toggle:
+    offers-enabled: false
     caching-enabled: false
 
 application:
   integration:
-    base-url: http://localhost:8080
+    base-url: http://spring-store-cache.apps.pcfone.io
