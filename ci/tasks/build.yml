@@ -9,11 +9,8 @@ inputs:
 
 outputs:
   - name: build-output
-
-#run:
-#  path: "sample-spring-cache-app/ci/scripts/build.sh"
+  - name: .m2
 
 run:
-  path: echo
-  args:
-    - 'Executing Build'
+  path: "sample-spring-cache-app/ci/scripts/build.sh"
+

@@ -29,7 +29,7 @@ Order smallest test suite size to largest, the following is the list of test typ
 1. Unit
 
 `mvn test` will execute all Unit, JSON, Component, and Contract Tests <br>
-`mvn integration-test -Dunit.tests.skip=true` will execute only the integration tests
+`mvn verify -Dunit.tests.skip=true` will execute only the integration tests
 
 ### Gemfire Setup
 

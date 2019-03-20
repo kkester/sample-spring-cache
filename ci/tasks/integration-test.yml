@@ -6,6 +6,7 @@ image_resource:
 
 inputs:
   - name: sample-spring-cache-app
+  - name: .m2
 
 run:
   path: "sample-spring-cache-app/ci/scripts/integration-test.sh"
