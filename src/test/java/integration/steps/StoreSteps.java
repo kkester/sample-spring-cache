@@ -91,9 +91,4 @@ public class StoreSteps {
         }
     }
 
-    @And("^verify build fails when test fails$")
-    public void temp() {
-        fail("verifying failures");
-    }
-
 }

@@ -9,4 +9,3 @@ Feature: the client can retrieve the store
     And the participant's products is cached
     And the participant's "banners" is cached in "offers"
     And the participant's "promotions" is cached in "offers"
-    And verify build fails when test fails

@@ -14,3 +14,5 @@ outputs:
 run:
   path: "sample-spring-cache-app/ci/scripts/build.sh"
 
+caches:
+  - path: .m2/
