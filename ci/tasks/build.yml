@@ -11,4 +11,4 @@ outputs:
   - name: build-output
 
 run:
-  path: "sample-spring-redis-app/ci/scripts/build.sh"
+  path: "sample-spring-cache-app/ci/scripts/build.sh"
