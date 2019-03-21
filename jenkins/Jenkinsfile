@@ -15,6 +15,6 @@ node {
         sh('cf push')
     }
     stage("Integration Test") {
-        sh("./mvnw verify -Dunit.tests.skip=true -Dcache_app_url=${env.APP_URL}")
+        sh("./mvnw verify -Dunit.tests.skip=true -Dcache_app_url=${APP_URL}")
     }
 }
