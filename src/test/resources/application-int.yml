@@ -22,4 +22,4 @@ feature:
 
 application:
   integration:
-    base-url: http://spring-store-cache.apps.pcfone.io
+    base-url: ${cache_app_url}

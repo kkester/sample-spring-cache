@@ -3,8 +3,9 @@ resources:
   - name: sample-spring-cache-app
     type: git
     source:
-      uri: https://github.com/kkester/sample-spring-cache.git
-      branch: master
+      uri: {{git_repo_uri}}
+      branch: {{git_branch}}
+      private_key: {{github_private_key}}
     check_every: 30s
 
 jobs:
@@ -19,3 +20,5 @@ jobs:
         file: sample-spring-cache-app/ci/tasks/deploy.yml
       - task: Execute Integration Tests
         file: sample-spring-cache-app/ci/tasks/integration-test.yml
+        params:
+          APP_URL: {{app_url}}

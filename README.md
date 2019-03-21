@@ -28,8 +28,11 @@ Order smallest test suite size to largest, the following is the list of test typ
 1. Contract (Tests defined within `/resources/contracts`)
 1. Unit
 
-`mvn test` will execute all Unit, JSON, Component, and Contract Tests <br>
-`mvn verify -Dunit.tests.skip=true` will execute only the integration tests
+- `mvn test` will execute all Unit, JSON, Component, and Contract Tests <br>
+- `mvn verify -Dunit.tests.skip=true -Dcache_app_url={url}` will execute only the integration tests. eg:
+    ```text
+    mvn verify -Dunit.tests.skip=true -Dcache_app_url=http://spring-store-cache.apps.pcfone.io
+    ```
 
 ### Gemfire Setup
 
@@ -66,3 +69,28 @@ Content-Type: application/json<br>
 	}
 }
 ```
+
+### Concourse CI
+
+The `ci` folder contains a pipeline configuration for concourse.
+
+1. Startup Concourse
+    ```text
+    docker-compose up -d
+    ```
+1. Setup Pipeline
+    ```text
+    fly -t tutorial sp -p sample-spring-cache -c main-pipeline.yml -l {credentials.yml}
+    ```
+1. Unpause The Pipeline
+    ```text
+    fly -t tutorial up -p sample-spring-cache
+    ```
+1. Any changes made to application repository should automatically trigger a build
+1. Shutdown Concourse
+    ```text
+    docker-compose down
+    ```
+
+### Jenkins CI
+

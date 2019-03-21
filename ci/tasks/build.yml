@@ -9,10 +9,6 @@ inputs:
 
 outputs:
   - name: build-output
-  - name: .m2
 
 run:
   path: "sample-spring-cache-app/ci/scripts/build.sh"
-
-caches:
-  - path: .m2/

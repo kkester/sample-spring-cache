@@ -4,9 +4,11 @@ image_resource:
   type: docker-image
   source: {repository: java, tag: openjdk-8-alpine}
 
+params:
+  APP_URL:
+
 inputs:
   - name: sample-spring-cache-app
-  - name: .m2
 
 run:
   path: "sample-spring-cache-app/ci/scripts/integration-test.sh"
