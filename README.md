@@ -94,3 +94,19 @@ The `ci` folder contains a pipeline configuration for concourse.
 
 ### Jenkins CI
 
+The `jenkins` folder contains a script that can be used to configure a job for jenkins
+
+1. Startup Jenkins
+    ```text
+    jenkins
+    ```
+1. Setup Job
+    - New Item
+    - Pipeline Project Type
+1. Select Options
+    - GitHub Project and Provide project url
+    - Project is Parameterized with `APP_URL`
+    - Poll SCM with a value of `H/5 * * * *`
+1. Configure Pipeline
+    - Definition of `Pipeline script from SCM`
+    - SCM is Git and provide repo url 
