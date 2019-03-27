@@ -35,7 +35,7 @@ public class StoreSteps {
     private String offersEnabled;
 
     @When("^the client calls /store$")
-    public void the_client_issues_GET_participant() {
+    public void the_client_issues_GET_store() {
         restApiFeature.getStore();
     }
 
